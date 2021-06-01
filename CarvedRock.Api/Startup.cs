@@ -3,6 +3,7 @@ using CarvedRock.Api.GraphQL;
 using CarvedRock.Api.GraphQL.Types;
 using CarvedRock.Api.Repositories;
 using GraphQL;
+using GraphQL.Instrumentation;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using Microsoft.AspNetCore.Builder;
@@ -37,8 +38,7 @@ namespace CarvedRock.Api
             services.AddScoped<CarvedRockSchema>();
 
             services.AddGraphQL(o => { o.ExposeExceptions = _env.IsDevelopment(); })
-                .AddGraphTypes(ServiceLifetime.Scoped)
-                .AddUserContextBuilder(context => context.User)
+                .AddGraphTypes(ServiceLifetime.Scoped).AddUserContextBuilder(httpContext => httpContext.User)
                 .AddDataLoader();
         }
 

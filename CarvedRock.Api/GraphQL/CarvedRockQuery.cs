@@ -15,8 +15,8 @@ namespace CarvedRock.Api.GraphQL
 
             Field<ProductType>(
                 "product",
-                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
-                    {Name = "id"}),
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>> {Name = "id"}
+                ),
                 resolve: context =>
                 {
                     var id = context.GetArgument<int>("id");
