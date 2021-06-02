@@ -7,9 +7,11 @@ namespace CarvedRock.Api.GraphQL.Types
         public ProductReviewInputType()
         {
             Name = "reviewInput";
+            Field<IdGraphType>("id");
             Field<NonNullGraphType<StringGraphType>>("title");
             Field<StringGraphType>("review");
-            Field<NonNullGraphType<IntGraphType>>("productId");
+            Field<IntGraphType>("productId");
         }
+
     }
 }

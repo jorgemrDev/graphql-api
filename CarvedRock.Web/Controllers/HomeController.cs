@@ -11,8 +11,7 @@ namespace CarvedRock.Web.Controllers
         private readonly ProductHttpClient _httpClient;
         private readonly ProductGraphClient _productGraphClient;
 
-        public HomeController(ProductHttpClient httpClient, 
-            ProductGraphClient productGraphClient)
+        public HomeController(ProductHttpClient httpClient, ProductGraphClient productGraphClient)
         {
             _httpClient = httpClient;
             _productGraphClient = productGraphClient;
@@ -28,6 +27,7 @@ namespace CarvedRock.Web.Controllers
 
         public async Task<IActionResult> ProductDetail(int productId)
         {
+            await _productGraphClient.SubscribeToUpdates();
             var product = await _productGraphClient.GetProduct(productId);
             return View(product);
         }
@@ -38,7 +38,7 @@ namespace CarvedRock.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddReview(ProductReviewInputModel reviewModel)
+        public async Task<IActionResult> AddReview(ProductReviewModel reviewModel)
         {
             await _productGraphClient.AddReview(reviewModel);
             return RedirectToAction("ProductDetail", new {productId = reviewModel.ProductId});
